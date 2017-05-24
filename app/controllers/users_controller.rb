@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
   def create
     puts'<<<<<<<<<<<------------------<<<<<<'
-    @user = User.create(name:params[:name], email:params[:email], password:params[:password], password_confirmation:[:password_confirmation])
+    @user = User.create(user_params)
 
     if @user.valid?
       session[:user_id] = @user.id
