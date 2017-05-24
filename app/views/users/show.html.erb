@@ -1,0 +1,36 @@
+<div class="" style="padding:20px;;background-color:#BEEBFF;border:1px solid #777777">
+
+<a href="/secrets/">All Secrets</a>
+
+<h1>Welcome <%=current_user.name%></h1>
+
+
+
+<form  action="/secrets/create" method="post">
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+  <h3>Add a Secret</h3>
+  <textarea style="resize:none;"name="secret" rows="3" cols="40"></textarea><br>
+  <input style="margin-left:188px;" type="submit" name="Add Secret" value="Add Secret">
+</form>
+
+<h3>Your Secrets</h3>
+<% current_user.secrets.each do |item| %>
+  <p><%= item.secret %>
+    <form action="/secrets/<%=item.id%>" method="post" style="display:inline-blcok;">
+      <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" name="Delete" value="Delete">
+
+    </form></p>
+
+  <p style=font-size:12px;font-style:italic;"><%=item.likes.count%> Likes</p>
+<% end %>
+
+<h3>Secrets You Liked</h3>
+  <% current_user.liked_secrets.each do |item| %>
+    <p style="margin-left:15px;"><%= item.secret %></p>
+    <p style="margin-left:25px;font-style:italic;font-size:12px;color:#999999'"><%= item.likes.count %> Likes</p>
+  <% end %>
+
+
+</div>
